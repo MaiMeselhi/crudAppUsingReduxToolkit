@@ -7,10 +7,15 @@ export const postsSlice = createSlice({
         addPost: function (state, action) {
             state.items.push(action.payload);
         },
+        deletePost: function (state, action) {
+            state.items = state.items.filter(
+                (item) => item.id != action.payload.id
+            );
+        },
     },
 });
 
 // Action creators are generated for each case reducer function
-export const { addPost } = postsSlice.actions;
+export const { addPost, deletePost } = postsSlice.actions;
 
 export default postsSlice.reducer;
