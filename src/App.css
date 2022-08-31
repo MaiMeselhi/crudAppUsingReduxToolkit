@@ -36,14 +36,35 @@ button {
 }
 .posts {
     width: 47%;
-    background-color: #ffff;
-    border: 1px solid #888;
+    text-transform: capitalize;
     padding: 0px;
     margin: 15px auto;
 }
 .posts button {
     width: 150px;
-    height: 60px;
+    height: 40px;
     display: inline-block;
     margin: 15px;
+}
+.post {
+    width: 100%;
+    padding: 1rem;
+    border: 1px solid darkgray;
+    background-image: linear-gradient(
+        to right top,
+        #303030,
+        #5e5e5e,
+        #909090,
+        #c6c6c6,
+        #ffffff
+    );
+}
+.post button {
+    height: 30px;
+    width: 100px;
+    margin: 5px;
+}
+.post input {
+    height: 40px;
+    margin: 5px;
 }
