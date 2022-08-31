@@ -12,10 +12,18 @@ export const postsSlice = createSlice({
                 (item) => item.id != action.payload.id
             );
         },
+        editPost: function (state, action) {
+            state.items.map((item) => {
+                if (item.id == action.payload.id) {
+                    item.title = action.payload.title;
+                    item.description = action.payload.description;
+                }
+            });
+        },
     },
 });
 
 // Action creators are generated for each case reducer function
-export const { addPost, deletePost } = postsSlice.actions;
+export const { addPost, deletePost, editPost } = postsSlice.actions;
 
 export default postsSlice.reducer;

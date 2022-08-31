@@ -1,10 +1,15 @@
 import React, { useState } from "react";
-import { addPost, deletePost } from "../redux/postsSlice";
+import { addPost, deletePost, editPost } from "../redux/postsSlice";
 import { useDispatch, useSelector } from "react-redux/es/exports";
+import { editableInputTypes } from "@testing-library/user-event/dist/utils";
 
 export default function Posts() {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
+    const [edit, setEdit] = useState(false);
+    const [id, setId] = useState(null);
+    const [editTitle, setEditTitle] = useState("");
+    const [editDescription, setEditDescription] = useState("");
     const posts = useSelector((state) => state.posts.items);
     const dispatch = useDispatch();
     return (
@@ -44,14 +49,55 @@ export default function Posts() {
                           <div className="post" key={post.id}>
                               <h2>{post.title}</h2>
                               <p>{post.description}</p>
-                              <button>add post</button>
+                              <button
+                                  onClick={() => {
+                                      setEdit(true);
+                                      setId(post.id);
+                                  }}
+                              >
+                                  Edit{" "}
+                              </button>
                               <button
                                   onClick={() => {
                                       dispatch(deletePost({ id: post.id }));
                                   }}
                               >
-                                  delete post
+                                  Delete
                               </button>
+                              <br />
+                              {edit && id == post.id && (
+                                  <>
+                                      <input
+                                          type="text"
+                                          placeholder="edit title"
+                                          onChange={(e) =>
+                                              setEditTitle(e.target.value)
+                                          }
+                                      />
+                                      <input
+                                          type="text"
+                                          placeholder="edit description"
+                                          onChange={(e) =>
+                                              setEditDescription(e.target.value)
+                                          }
+                                      />
+                                      <button
+                                          onClick={() => {
+                                              dispatch(
+                                                  editPost({
+                                                      id: post.id,
+                                                      title: editTitle,
+                                                      description:
+                                                          editDescription,
+                                                  })
+                                              );
+                                              setEdit(false);
+                                          }}
+                                      >
+                                          Edit
+                                      </button>
+                                  </>
+                              )}
                           </div>
                       ))
                     : "there no posts"}
